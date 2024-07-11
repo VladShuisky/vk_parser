@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "vk-parser-new"
+version = "0.1.0"
+description = ""
+authors = ["vlad.shuisky208 <vlad.shuisky@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+vk-api = "^11.9.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
