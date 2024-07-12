@@ -49,7 +49,7 @@ class CommunityParser:
                 f'Error in getting all users from community(group)="{community_screenname}" '
                 f'on offset={offset}. '
                 f'The funtions return all that received at the moment...'
-                f'({type(e)}: {str(E)})'
+                f'({type(e)}: {str(e)})'
             )
         return _all
 
@@ -57,7 +57,8 @@ class CommunityParser:
             self,
             community_screenname: str,
             offset: int,
-            fields: list[str]
+            fields: list[str],
+            filter_by_can_add_to_friend: bool = True
         ) -> list[dict]:
         '''
         returns list of dict items, which contain data about users: id, screen_name, first_name, can_access_closed, is_closed.
@@ -76,6 +77,20 @@ class CommunityParser:
             offset=offset,
             fields=fields
         ).get('items')
+
+        print(res[0])
+
+        if filter_by_can_add_to_friend:
+            filtered = []
+            for item in res:
+                if 'can_send_friend_request' in item.keys():
+                    if item['can_send_friend_request']:
+                        filtered.append(item)
+            community_parser_logger.info(
+                f'{community_screenname} getting offset, received and filtered '
+                f'by posibility of adding to friend >>> {len(res)} clients'
+            )
+            return filtered
 
         community_parser_logger.info(
             f'{community_screenname} getting offset, received >>> {len(res)} clients'

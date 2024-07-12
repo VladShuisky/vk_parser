@@ -22,3 +22,4 @@ def create_logger(name: str) -> logging.Logger:
 
 community_parser_logger = create_logger('com_pars_logger')
 csv_file_write_logger = create_logger('csv_writer_logger')
+script_parsing_logger = create_logger('script_parsing_logger')
