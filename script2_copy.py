@@ -2,6 +2,7 @@ import json
 import time
 import traceback
 from vk_api import VkApi
+from vk_api.exceptions import ApiError
 
 from community_parser import CommunityParser
 from old_friendly_users_getter import SearchFriendlyUSers
@@ -12,23 +13,22 @@ from loggers import script_parsing_logger
 api = VkApi(token=TOKEN).get_api()
 
 group_names = [
-#  'tyt_novosti',
-#  'piratetreasures',
-#  'leprazo',
-#  'vkgames',
-#  'bak',
-#  'smechno_do_boli',
-#  'overhear',
-#  'ulibnullo',
-#  'megaotriv',
-#  'great.food',
-#  'science_technology',
-#  'comedyclubru',
-#  'zerofat',
-#  'hmideas',
-#  'cocacola',
-#  'foodrumedia',
-#  'zloyzayacgif'
+ 'tyt_novosti',
+ 'leprazo',
+ 'vkgames',
+ 'bak',
+ 'smechno_do_boli',
+ 'overhear',
+ 'ulibnullo',
+ 'megaotriv',
+ 'great.food',
+ 'science_technology',
+ 'comedyclubru',
+ 'zerofat',
+ 'hmideas',
+ 'cocacola',
+ 'foodrumedia',
+ 'zloyzayacgif'
  ]
 
 for group_name in group_names:
@@ -46,11 +46,19 @@ for group_name in group_names:
                 )
                 break
             except Exception as e:
-                if e.
-                script_parsing_logger.error(f'errror >>> {type(e)} : {str(e)}')
-                traceback.print_exc()
-                script_parsing_logger.info('sleeping 300 seconds')
-                time.sleep(300)
+                if isinstance(e, ApiError):
+                    if e.code == 15: # hidden members of community
+                        data = 'raise exc'
+                    break
+
+                else:
+                    script_parsing_logger.error(f'errror >>> {type(e)} : {str(e)}')
+                    traceback.print_exc()
+                    script_parsing_logger.info('sleeping 300 seconds')
+                    time.sleep(300)
+
+        if data == 'raise exc':
+            continue
 
         try:
             script_parsing_logger.info(f'{group_name}: try to filter by SearchFriendlyUsers class')
