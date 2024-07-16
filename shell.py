@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 
 from main_api.service.vk_parsing.community_parser import CommunityParser
 from main_api.service.vk_parsing.get_groups_users import get_groups_users
-from saver_for_promo import SaverForPromoCsvImport
+from main_api.service.export.saver_for_promo import SaverForPromoCsvImport
 from old_friendly_users_getter import SearchFriendlyUSers
 from main_api.parsingsources.models import ParsingAccountApiCredentials, ParsingResourceApi
 from main_api.parsingtasks.models import Task, TaskProps, TaskResults
