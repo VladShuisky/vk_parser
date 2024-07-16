@@ -20,3 +20,5 @@ def create_logger(name: str) -> logging.Logger:
     return logger
 
 db_logger = create_logger('db_logger')
+community_parser_logger = create_logger('community_parser_logger')
+get_groups_users_logger = create_logger('get_groups_users_logger')

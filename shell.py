@@ -4,7 +4,8 @@ from vk_api import VkApi
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import sessionmaker
 
-from community_parser import CommunityParser
+from main_api.service.vk_parsing.community_parser import CommunityParser
+from main_api.service.vk_parsing.get_groups_users import get_groups_users
 from saver_for_promo import SaverForPromoCsvImport
 from old_friendly_users_getter import SearchFriendlyUSers
 from main_api.parsingsources.models import ParsingAccountApiCredentials, ParsingResourceApi
@@ -12,7 +13,8 @@ from main_api.parsingtasks.models import Task, TaskProps, TaskResults
 from main_api.db.db import AsyncSession, engine
 from sqlmodel import select
 
-from main_api.parsingtasks.crud import task_crud
+from main_api.parsingtasks.crud import task_crud, taskresults_crud, taskprops_crud
+
 
 async_session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 

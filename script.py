@@ -2,7 +2,7 @@ import json
 import traceback
 from vk_api import VkApi
 
-from community_parser import CommunityParser
+from main_api.service.vk_parsing.community_parser import CommunityParser
 from old_friendly_users_getter import SearchFriendlyUSers
 from saver_for_promo import SaverForPromoCsvImport
 from settings import DEFAULT_FIELDS_TO_NEED, TOKEN

@@ -3,6 +3,7 @@ from typing import Optional
 from vk_api import VkApi
 from vk_api.vk_api import VkApiMethod
 from loggers import community_parser_logger
+from main_api.loggers import community_parser_logger
 
 from exceptions import CommunityParserException
 
@@ -15,7 +16,8 @@ class CommunityParser:
     def get_all_community_participants(
         self, 
         community_screenname: str, 
-        fields: list[str]
+        fields: list[str],
+        filter_by_can_add_to_friend: bool = True
     ) -> Optional[list[dict]]:
         community_parser_logger.info(
             f'starting get all members of "{community_screenname}"'
@@ -32,7 +34,8 @@ class CommunityParser:
                 offsetted_members = self.get_thousand_with_offset(
                     community_screenname=community_screenname,
                     offset=offset,
-                    fields=fields
+                    fields=fields,
+                    filter_by_can_add_to_friend=filter_by_can_add_to_friend
                 )
                 if not offsetted_members:
                     break
@@ -68,7 +71,7 @@ class CommunityParser:
             fields = ['screen_name']
 
         community_parser_logger.info(
-            f'start parsing community members of {community_screenname}'
+            f'start parsing community members of {community_screenname} '
             f'with offset >>> {offset}'
         )
 
@@ -77,8 +80,6 @@ class CommunityParser:
             offset=offset,
             fields=fields
         ).get('items')
-
-        print(res[0])
 
         if filter_by_can_add_to_friend:
             filtered = []
