@@ -1,0 +1,3 @@
+# TOKEN = 'vk1.a.oBd8lC3Zc0JYDxrgZOKEiKmnu5LeuDGu6MrO_JSmvu9w5mmkTsSophfP4kiScKzuXIMHIZziZwAnn2LoYaXK6iWDESW-ZsgWnLRaFktapvYzNJlnMpZzKffIppAPlSZFvmuH0H2xukRZxw7rU0hkRkVZDCOXD8vIUAfuqSMRQvc1qI9OiGqpUOXdWWMchtDQBhPX8z2OXisKg57PhNq7Jw'
+TOKEN = 'vk1.a.1q_BQCyTMvX8h8X_MLMCJrcsdFZ45dRzYzL5lrix1AxDVf323VPXVhHXhY9s4UCMfbKjWQZLmcTf9wPiUTYKSRaTOXIldxaChurz5pZJ2OZNIn0XgLPKIO6jQl_fZpsF96yY1q7WLjkv5gzohIlIC4druCzPBymLrEF5BxQKZem7lP-MM3PuaYXSXJeXP2t8MTH7FBI_9lwA-Dsiq41iiA'
+DEFAULT_FIELDS_TO_NEED = ['screen_name', 'first_name', 'last_name', 'city', 'phone_number', 'sex', 'can_send_friend_request']

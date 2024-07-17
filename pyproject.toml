@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "vk-parser-new"
+version = "0.1.0"
+description = ""
+authors = ["vlad.shuisky208 <vlad.shuisky@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+vk-api = "^11.9.9"
+fastapi = "^0.111.0"
+uvicorn = {extras = ["standard"], version = "^0.30.1"}
+alembic = "^1.13.2"
+sqlmodel = "^0.0.19"
+fastapi-crudrouter = "^0.8.6"
+asyncpg = "^0.29.0"
+psycopg2 = "^2.9.9"
+vkbottle = "^4.3.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
