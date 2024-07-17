@@ -1,0 +1,31 @@
+variables:
+  DB_HOST: ${DB_HOST}
+  DB_NAME: ${DB_NAME}
+  DB_USER: ${DB_USER}
+  DB_PASS: ${DB_PASS}
+
+include:
+  - project: "quiz/ci-cd-skeleton"
+    ref: main
+    file: "ci-cd-skeleton.yml"
+
+stages:
+  - build
+  - deploy
+  - post_deploy
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+build:
+  extends: .build_template
+
+deploy:
+  extends: .deploy_template
+
+post_deploy:
+  stage: post_deploy
+  script:
+    - cd $PROJECT_PATH
+    - docker-compose --compatibility exec -T promo_parser poetry run alembic upgrade head

@@ -1,0 +1,24 @@
+version: '3.3'
+
+services:
+  promo_parser:
+    container_name: quiz_promo_parser
+    restart: unless-stopped
+    build: .
+    command: poetry run uvicorn app:app --host 0.0.0.0 --port 8010
+    environment:
+        DB_HOST: ${DB_HOST}
+        DB_NAME: ${DB_NAME}
+        DB_USER: ${DB_USER}
+        DB_PASS: ${DB_PASS}
+    ports:
+      - "8013:8010"
+    volumes:
+      - ./:/app
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 2G
+        reservations:
+          memory: 300M
