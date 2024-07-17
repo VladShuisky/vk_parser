@@ -6,8 +6,6 @@ from loggers import community_parser_logger
 from main_api.loggers import community_parser_logger
 
 from vkbottle import API
-from vkbottle_types.objects import GroupsUserXtrRole
-
 
 
 class AsyncCommunityParser:
@@ -25,7 +23,8 @@ class AsyncCommunityParser:
             f'starting get all members of "{community_screenname}"'
         )
         try:
-            is_in_group_now: int = await self.vk_api.groups.get_members(group_id=community_screenname).count
+            is_in_group_now: int = await self.vk_api.groups.get_members(group_id=community_screenname)
+            is_in_group_now = is_in_group_now.count
         except Exception:
             is_in_group_now = 'UNKNOWN'
 
@@ -74,11 +73,12 @@ class AsyncCommunityParser:
             f'with offset >>> {offset}'
         )
 
-        res: list[GroupsUserXtrRole] = await self.vk_api.groups.get_members(
+        res = await self.vk_api.groups.get_members(
             group_id=community_screenname,
             offset=offset,
             fields=fields
         )
+        res = res.items
 
         items_to_return = []
         for item in res:

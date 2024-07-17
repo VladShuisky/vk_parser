@@ -3,16 +3,15 @@ from typing import Optional
 
 import sqlalchemy as sa
 from sqlmodel import Field, SQLModel
+import sqlmodel
 
 # from app.utils import tznow
 
 
-class TimeStampMixin:
-    __name__: str
-    __config__ = {}
+class TimeStampMixin(SQLModel):
 
     created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    update_at: datetime = Field(default_factory=datetime.utcnow)
     # created_time: Optional[datetime] = Field(
     #     default_factory=datetime.utcnow,
     #     sa_column=sa.Column(

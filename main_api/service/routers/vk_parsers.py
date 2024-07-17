@@ -20,9 +20,6 @@ async def get_users_from_groups(
     #     data.fields
     # )
 
-    print(db)
-    print(type(db))
-
     await get_groups_users(
         db,
         data.parsing_task_name,

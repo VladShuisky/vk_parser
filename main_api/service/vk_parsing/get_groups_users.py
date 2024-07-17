@@ -94,12 +94,11 @@ async def get_groups_users(
     for group_name in groups_screennames:
         parser = AsyncCommunityParser(vk_api=vkapi)
         try:
-            group_res = parser.get_all_community_participants(
+            group_res = await parser.get_all_community_participants(
                 community_screenname=group_name,
                 fields=fields,
                 filter_by_can_add_to_friend=False
             )
-            logger.warning(group_res)
             if group_res:
                 group_res_ids = [item['id'] for item in result['result']]
                 for item in group_res:
