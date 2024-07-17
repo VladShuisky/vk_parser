@@ -3,12 +3,14 @@ from typing import List, Optional
 from fastapi import HTTPException
 from sqlmodel import and_, select
 from vk_api import VkApi
+from vkbottle import API
 
 from main_api.parsingsources.models.parsingresourceapicredentials import ParsingAccountApiCredentials
 from main_api.parsingtasks.crud import task_crud, taskprops_crud, taskresults_crud
+from main_api.parsingtasks.models.task import Task
 from main_api.parsingtasks.models.taskprops import TaskProps
 from main_api.parsingtasks.models.taskresults import TaskResults
-from main_api.service.vk_parsing.community_parser import CommunityParser
+from main_api.service.vk_parsing.async_community_parser import AsyncCommunityParser
 from main_api.loggers import get_groups_users_logger as logger
 
 async def get_groups_users(
@@ -26,7 +28,7 @@ async def get_groups_users(
     logger.info('start vk parsing task!')
     logger.info('creating task...')
 
-    task = await task_crud.create(
+    task: Task = await task_crud.create(
         db, obj_in={
             'unique_name': parsing_task_name,
             'start_datetime': None,
@@ -74,7 +76,8 @@ async def get_groups_users(
 
     logger.info(f'task with id >> {task_id}: account engaged, task_props updated, and saved in db')
 
-    vkapi = VkApi(token=access_token).get_api()
+    # vkapi = VkApi(token=access_token).get_api()
+    vkapi = API(token=access_token)
 
     logger.info(f'task with id >> {task_id}, api received')
 
@@ -89,7 +92,7 @@ async def get_groups_users(
     logger.info(f'task id >> {task_id}: start parsing...')
 
     for group_name in groups_screennames:
-        parser = CommunityParser(vk_api=vkapi)
+        parser = AsyncCommunityParser(vk_api=vkapi)
         try:
             group_res = parser.get_all_community_participants(
                 community_screenname=group_name,
@@ -114,7 +117,6 @@ async def get_groups_users(
     task_results.body = result
 
     creds_item.engaged = False
-
 
     db.add(task_results)
     db.add(creds_item)

@@ -12,7 +12,7 @@ class TimeStampMixin:
     __config__ = {}
 
     created_at: datetime = Field(default_factory=datetime.utcnow)
-    update_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
     # created_time: Optional[datetime] = Field(
     #     default_factory=datetime.utcnow,
     #     sa_column=sa.Column(
